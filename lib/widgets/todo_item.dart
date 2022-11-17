@@ -3,9 +3,15 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 
-class ToDoItem extends StatelessWidget {
-  const ToDoItem({super.key});
+class ToDoItem extends StatefulWidget {
+  String? todoText;
+  ToDoItem({super.key, this.todoText});
 
+  @override
+  State<ToDoItem> createState() => _ToDoItemState();
+}
+
+class _ToDoItemState extends State<ToDoItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,13 +25,17 @@ class ToDoItem extends StatelessWidget {
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: Color.fromARGB(137, 124, 124, 124),
-        leading: Icon(
-          Icons.check_box,
-          color: Colors.red,
+        leading: Checkbox(
+          value: false,
+          onChanged: (value) {
+            setState(() {
+              value == false ? value = true : value = false;
+            });
+          },
         ),
         title: Text(
-          'Go for morning walk',
-          style: TextStyle(
+          widget.todoText!,
+          style: const TextStyle(
             fontSize: 16,
             color: Colors.white,
             decoration: TextDecoration.lineThrough,
